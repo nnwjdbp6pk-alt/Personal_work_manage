@@ -78,12 +78,16 @@ pub fn seed_sample_data(db: &AppDb) -> Result<(), rusqlite::Error> {
             (2, '발색 (L*)', 22.5, '', '분광광도계', 'CIE L*a*b*'),
             (2, 'pH', 7.5, '', 'pH 미터', '');
 
-        INSERT INTO inventory_logs (item_name, log_type, quantity, unit, date, purpose, project_id, experiment_id, memo) VALUES
-            ('에폭시 아크릴레이트', 'OUT', 45.0, 'g', '2026-03-27', '배합 A-3 실험', 1, 1, ''),
-            ('반응성 희석제 (HDDA)', 'OUT', 30.0, 'g', '2026-03-27', '배합 A-3 실험', 1, 1, ''),
-            ('카본블랙 안료', 'IN', 500.0, 'g', '2026-03-25', '신규 입고', NULL, NULL, '공급업체: ABC Chemical'),
-            ('증점제 (HEC)', 'IN', 200.0, 'g', '2026-03-25', '신규 입고', NULL, NULL, ''),
-            ('수성 바인더', 'OUT', 50.0, 'g', '2026-03-26', '잉크 점도 조절 실험', 2, 2, '');
+        INSERT INTO inventory_logs (item_name, log_type, sub_type, quantity, unit, date, purpose, project_id, experiment_id, memo,
+            provider, usage_desc, unit_price, form_factor, total_amount, recipient_dept, recipient_name, lot, test_content, test_result) VALUES
+            ('에폭시 아크릴레이트', 'IN', '원료 샘플(입고)', 500.0, 'g', '2026-03-24', '배합 원료', NULL, NULL, '', 'ABC Chemical', 'UV 접착제 배합용', NULL, NULL, NULL, '', '', '', '', ''),
+            ('카본블랙 안료', 'IN', '원료 샘플(입고)', 500.0, 'g', '2026-03-25', '잉크 안료', NULL, NULL, '', 'XYZ Pigment', '수성 잉크 발색용', NULL, NULL, NULL, '', '', '', '', ''),
+            ('UV 접착제 시작품 v3', 'IN', '자사 샘플(입고)', 10.0, 'ea', '2026-03-28', '시작품 입고', 1, NULL, '', '', '', 5000.0, 1.0, 50000.0, '', '', '', '', ''),
+            ('A4용지', 'IN', '비품(입고)', 5.0, 'box', '2026-03-25', '사무용품', NULL, NULL, '', '', '', NULL, NULL, NULL, '', '', '', '', ''),
+            ('K사 UV 접착제 RX-100', 'IN', '타사 샘플(입고)', 100.0, 'g', '2026-03-26', '벤치마크 분석', NULL, NULL, '경쟁사 제품', '', '', NULL, NULL, NULL, '', '', '', '', ''),
+            ('에폭시 아크릴레이트', 'OUT', '시험 샘플(출고)', 45.0, 'g', '2026-03-27', '배합 A-3 실험', 1, 1, '', '', '', NULL, NULL, NULL, '', '', 'UV-A3-0327', '점도/접착강도 측정', '점도 3500cP, 접착강도 12.5MPa'),
+            ('수성 바인더', 'OUT', '시험 샘플(출고)', 50.0, 'g', '2026-03-26', '잉크 점도 조절', 2, 2, '', '', '', NULL, NULL, NULL, '', '', 'INK-V2-0326', '점도/발색 측정', ''),
+            ('UV 접착제 시작품 v3', 'OUT', '견본(출고)', 2.0, 'ea', '2026-03-29', '품질팀 평가용', 1, NULL, '', '', '', NULL, NULL, NULL, '품질관리팀', '김철수', '', '', '');
         "
     )?;
 

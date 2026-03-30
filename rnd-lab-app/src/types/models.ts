@@ -65,10 +65,35 @@ export interface PropertyMeasurement {
   memo: string;
 }
 
+export type InventorySubTypeIn =
+  | '원료 샘플(입고)'
+  | '자사 샘플(입고)'
+  | '비품(입고)'
+  | '타사 샘플(입고)';
+
+export type InventorySubTypeOut =
+  | '견본(출고)'
+  | '시험 샘플(출고)';
+
+export type InventorySubType = InventorySubTypeIn | InventorySubTypeOut;
+
+export const INVENTORY_SUB_TYPES_IN: InventorySubTypeIn[] = [
+  '원료 샘플(입고)',
+  '자사 샘플(입고)',
+  '비품(입고)',
+  '타사 샘플(입고)',
+];
+
+export const INVENTORY_SUB_TYPES_OUT: InventorySubTypeOut[] = [
+  '견본(출고)',
+  '시험 샘플(출고)',
+];
+
 export interface InventoryLog {
   id: number;
   item_name: string;
   log_type: 'IN' | 'OUT';
+  sub_type: string;
   quantity: number;
   unit: string;
   date: string;
@@ -76,6 +101,20 @@ export interface InventoryLog {
   project_id: number | null;
   experiment_id: number | null;
   memo: string;
+  // 원료 샘플(입고)
+  provider: string;
+  usage_desc: string;
+  // 자사 샘플(입고)
+  unit_price: number | null;
+  form_factor: number | null;
+  total_amount: number | null;
+  // 견본(출고)
+  recipient_dept: string;
+  recipient_name: string;
+  // 시험 샘플(출고)
+  lot: string;
+  test_content: string;
+  test_result: string;
 }
 
 // Form input types (without id, for creation)

@@ -66,6 +66,7 @@ pub fn run() {
             inventory_cmds::list_inventory_logs,
             inventory_cmds::list_recent_inventory_logs,
             inventory_cmds::create_inventory_log,
+            inventory_cmds::update_inventory_test_result,
             inventory_cmds::delete_inventory_log,
             // Export
             export_cmds::generate_weekly_summary_md,

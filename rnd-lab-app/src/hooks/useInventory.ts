@@ -7,6 +7,7 @@ interface InventoryFilter {
   end?: string;
   itemName?: string;
   projectId?: number;
+  subType?: string;
 }
 
 export function useInventoryLogs(filter: InventoryFilter = {}) {
@@ -18,6 +19,7 @@ export function useInventoryLogs(filter: InventoryFilter = {}) {
         end: filter.end ?? null,
         itemName: filter.itemName ?? null,
         projectId: filter.projectId ?? null,
+        subType: filter.subType ?? null,
       }),
   });
 }
@@ -34,6 +36,17 @@ export function useCreateInventoryLog() {
   return useMutation({
     mutationFn: (data: CreateInventoryLog) =>
       invoke<InventoryLog>('create_inventory_log', { data }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['inventory'] }),
+  });
+}
+
+export function useUpdateTestResult() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { id: number; testResult: string }) =>
+      invoke<InventoryLog>('update_inventory_test_result', {
+        data: { id: data.id, test_result: data.testResult },
+      }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['inventory'] }),
   });
 }

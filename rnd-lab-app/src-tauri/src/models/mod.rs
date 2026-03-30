@@ -129,6 +129,7 @@ pub struct InventoryLog {
     pub id: i64,
     pub item_name: String,
     pub log_type: String,
+    pub sub_type: String,
     pub quantity: f64,
     pub unit: String,
     pub date: String,
@@ -136,12 +137,27 @@ pub struct InventoryLog {
     pub project_id: Option<i64>,
     pub experiment_id: Option<i64>,
     pub memo: String,
+    // 원료 샘플(입고)
+    pub provider: String,
+    pub usage_desc: String,
+    // 자사 샘플(입고)
+    pub unit_price: Option<f64>,
+    pub form_factor: Option<f64>,
+    pub total_amount: Option<f64>,
+    // 견본(출고)
+    pub recipient_dept: String,
+    pub recipient_name: String,
+    // 시험 샘플(출고)
+    pub lot: String,
+    pub test_content: String,
+    pub test_result: String,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct CreateInventoryLog {
     pub item_name: String,
     pub log_type: String,
+    pub sub_type: String,
     pub quantity: f64,
     pub unit: String,
     pub date: String,
@@ -149,4 +165,24 @@ pub struct CreateInventoryLog {
     pub project_id: Option<i64>,
     pub experiment_id: Option<i64>,
     pub memo: String,
+    // 원료 샘플(입고)
+    pub provider: String,
+    pub usage_desc: String,
+    // 자사 샘플(입고)
+    pub unit_price: Option<f64>,
+    pub form_factor: Option<f64>,
+    pub total_amount: Option<f64>,
+    // 견본(출고)
+    pub recipient_dept: String,
+    pub recipient_name: String,
+    // 시험 샘플(출고)
+    pub lot: String,
+    pub test_content: String,
+    pub test_result: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct UpdateTestResult {
+    pub id: i64,
+    pub test_result: String,
 }

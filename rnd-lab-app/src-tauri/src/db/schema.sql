@@ -65,13 +65,28 @@ CREATE TABLE IF NOT EXISTS inventory_logs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     item_name TEXT NOT NULL,
     log_type TEXT NOT NULL CHECK(log_type IN ('IN', 'OUT')),
+    sub_type TEXT NOT NULL DEFAULT '',
     quantity REAL NOT NULL,
     unit TEXT NOT NULL DEFAULT '',
     date TEXT NOT NULL,
     purpose TEXT NOT NULL DEFAULT '',
     project_id INTEGER REFERENCES projects(id) ON DELETE SET NULL,
     experiment_id INTEGER REFERENCES experiments(id) ON DELETE SET NULL,
-    memo TEXT NOT NULL DEFAULT ''
+    memo TEXT NOT NULL DEFAULT '',
+    -- 원료 샘플(입고) 전용
+    provider TEXT NOT NULL DEFAULT '',
+    usage_desc TEXT NOT NULL DEFAULT '',
+    -- 자사 샘플(입고) 전용
+    unit_price REAL,
+    form_factor REAL,
+    total_amount REAL,
+    -- 견본(출고) 전용
+    recipient_dept TEXT NOT NULL DEFAULT '',
+    recipient_name TEXT NOT NULL DEFAULT '',
+    -- 시험 샘플(출고) 전용
+    lot TEXT NOT NULL DEFAULT '',
+    test_content TEXT NOT NULL DEFAULT '',
+    test_result TEXT NOT NULL DEFAULT ''
 );
 
 -- Indexes for common queries
@@ -81,4 +96,5 @@ CREATE INDEX IF NOT EXISTS idx_experiments_project ON experiments(project_id);
 CREATE INDEX IF NOT EXISTS idx_inventory_date ON inventory_logs(date);
 CREATE INDEX IF NOT EXISTS idx_inventory_item ON inventory_logs(item_name);
 CREATE INDEX IF NOT EXISTS idx_inventory_project ON inventory_logs(project_id);
+CREATE INDEX IF NOT EXISTS idx_inventory_sub_type ON inventory_logs(sub_type);
 CREATE INDEX IF NOT EXISTS idx_property_experiment ON property_measurements(experiment_id);

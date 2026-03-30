@@ -101,6 +101,7 @@ export default function DashboardPage() {
                     <StatusBadge value={l.log_type} />
                     <span className="ml-2">{l.item_name}</span>
                     <span className="text-gray-400 ml-1">{l.quantity}{l.unit}</span>
+                    {l.sub_type && <span className="text-gray-300 ml-1 text-xs">({l.sub_type})</span>}
                   </span>
                   <span className="text-xs text-gray-400">{l.date}</span>
                 </li>
